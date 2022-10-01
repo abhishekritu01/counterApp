@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import "./styles/App.css"
 
-function App() {
+const App = () => {
+  const [count, setCount] = useState(0);
+
+  const handleIncrement = () => {
+    setCount(count + 1);
+  }
+  const handleDecrement = () => {
+    setCount(count - 1);
+  }
+  const handleReset = () => {
+    setCount(count*0);
+  }
+
+  const handleMultiply = () => {
+    setCount(count * 2);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Counter App</h1>
+      <span className='counter-preview'>{count}</span>
+      <div class="buttons" >
+        <button className="decrement" onClick={handleDecrement} >Decrement</button>
+        <button className="reset" onClick={handleReset}>Reset</button>
+        <button className="increment" onClick={handleIncrement} >Increment</button>
+        <button className="add" onClick={handleMultiply}>Multiply</button>
+      </div>
     </div>
-  );
+
+  )
 }
 
-export default App;
+export default App
