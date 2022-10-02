@@ -1,36 +1,18 @@
-import React, { useState } from 'react'
 import "./styles/App.css"
+// import { useState } from "react";
+import MyCounter from "./components/MyCounter";
+import CounterContextProvider from "./contexts/CounterContext";
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
-  const handleIncrement = () => {
-    setCount(count + 1);
-  }
-  const handleDecrement = () => {
-    setCount(count - 1);
-  }
-  const handleReset = () => {
-    setCount(count*0);
-  }
-
-  const handleMultiply = () => {
-    setCount(count * 2);
-  }
 
   return (
-    <div className='App'>
-      <h1>Counter App</h1>
-      <span className='counter-preview'>{count}</span>
-      <div class="buttons" >
-        <button className="decrement" onClick={handleDecrement} >Decrement</button>
-        <button className="reset" onClick={handleReset}>Reset</button>
-        <button className="increment" onClick={handleIncrement} >Increment</button>
-        <button className="add" onClick={handleMultiply}>Multiply</button>
+    <CounterContextProvider>
+      <div className='App'>
+        <h1>Counter App</h1>
+        <MyCounter />
       </div>
-    </div>
+    </CounterContextProvider>
 
   )
 }
-
 export default App
