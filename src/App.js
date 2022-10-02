@@ -1,36 +1,40 @@
-import React, { useState } from 'react'
-import "./styles/App.css"
+import React, { useReducer, createContext } from "react";
 
-const App = () => {
-  const [count, setCount] = useState(0);
 
-  const handleIncrement = () => {
-    setCount(count + 1);
-  }
-  const handleDecrement = () => {
-    setCount(count - 1);
-  }
-  const handleReset = () => {
-    setCount(count*0);
-  }
+import "./styles/App.css";
+import Counter from "./Counter";
 
-  const handleMultiply = () => {
-    setCount(count * 2);
-  }
+export const contextCounter = createContext();
 
+const initialState = 0;
+
+const reducer = (state, action) => {
+  switch (action) {
+    case "INCREMENT":
+      return { ...state, count: state.count + 1 };
+    case "DECREMENT":
+      return { ...state, count: state.count - 1 };
+    case "MULTIPLY":
+      return { ...state, count: state.count * 2 };
+    case "RESET":
+      return { ...state, count: initialState };
+    default:
+      return { state, count: initialState };
+  }
+};
+
+export default function App() {
+  const [counter, dispatch] = useReducer(reducer, { count: initialState });
   return (
-    <div className='App'>
-      <h1>Counter App</h1>
-      <span className='counter-preview'>{count}</span>
-      <div class="buttons" >
-        <button className="decrement" onClick={handleDecrement} >Decrement</button>
-        <button className="reset" onClick={handleReset}>Reset</button>
-        <button className="increment" onClick={handleIncrement} >Increment</button>
-        <button className="add" onClick={handleMultiply}>Multiply</button>
+    <>
+      <div className="App">
+      <h1 >
+        Counter App
+      </h1>
+      <contextCounter.Provider value={{ counter, dispatch }}>
+        <Counter />
+      </contextCounter.Provider>
       </div>
-    </div>
-
-  )
+    </>
+  );
 }
-
-export default App
